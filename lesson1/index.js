@@ -40,8 +40,8 @@ const app = http.createServer((req, res) => {
             break;
     }
 })
-const a = 0
-console.log(!a) //- Nếu giá trị bằng 0 thì => true ngc lại => false
+if (!!a)
+    console.log(!a) //- Nếu giá trị bằng 0 thì => true ngc lại => false
 console.log(!!a) //- Nếu giá trị bằng 0 thì => false ngc lại => true
 app.listen(PORT, (err) => {
     if (err) throw new Error('Error')
