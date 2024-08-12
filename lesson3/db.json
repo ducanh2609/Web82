@@ -160,5 +160,14 @@
             "createdAt": "2023-09-22T14:39:00.000Z",
             "isPublic": true
         }
+    ],
+    "comments": [
+        {
+            "commentId": "b1e3d9c8-6d96-4e86-94fc-7bcda8a1e0bd",
+            "userId": "6257644e-94f2-45fc-9803-fc862df55eaa",
+            "postId": "b1e3d9c8-6d97-4e86-94fc-7bcda8a1e0bd",
+            "content": "Yêu mọi người từ trái tim!",
+            "createdAt": "2023-09-22T14:39:00.000Z"
+        }
     ]
 }
