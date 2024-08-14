@@ -208,17 +208,19 @@ app.get('/users', async (req, res) => {
         // lấy list post
         const dataPosts = await fetch(`${SERVER_API}/posts`)
         const posts = await dataPosts.json()
+
         // lấy list user
         const dataUsers = await fetch(`${SERVER_API}/users`)
         const users = await dataUsers.json()
         // lấy list comment
-        const dataComments = await fetch(`${SERVER_API}/comment`)
+        const dataComments = await fetch(`${SERVER_API}/comments`)
         const comments = await dataComments.json()
         // Tạo ra 1 list rỗng
         const list = []
         users.forEach(user => {
             let data = {}
-            const userId = user.userId
+            const userId = user.id
+
             // tìm list post theo userId
             const listPost = posts.filter(item => item.userId === userId)
             data = {
@@ -234,19 +236,10 @@ app.get('/users', async (req, res) => {
             })
             list.push(data)
         });
-        // [
-        //     {
-        //         userId: '',
-        //         listPost: [
-        //             {
-        //                 postId: '',
-        //                 listComment: [
-
-        //                 ]
-        //             }
-        //         ]
-        //     }
-        // ]
+        res.status(200).send({
+            users: list,
+            total: list.length,
+        })
     } catch (error) {
         res.status(500).send({
             message: error.message
