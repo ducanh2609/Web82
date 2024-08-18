@@ -11,11 +11,11 @@ app.use(express.json())
 await mongoose.connect(`mongodb+srv://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@test.dknwp.mongodb.net/test`)
 console.log('database connected')
 
-app.post('/users', async (req, res) => {
+app.post('/users', async (req, res) => { // R
     //có thông user : req.body
     const { username, password, email } = req.body
     try {
-        const users = await UserModel.find()
+        const users = await UserModel.find() // => M
         const checkEmail = users.find(item => item.email === email)
         if (checkEmail) throw new Error('Email is exist')
         const createUser = await UserModel.create({
@@ -24,7 +24,7 @@ app.post('/users', async (req, res) => {
         res.status(201).send({
             user: createUser,
             message: 'Create success'
-        })
+        }) // => C
     } catch (error) {
         res.status(500).send({
             message: error.message
