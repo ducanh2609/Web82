@@ -1,3 +1,4 @@
+import { getOneUser } from "../../lesson7/models/users.models.js";
 import { getUserById } from "../models/users.models.js";
 
 const authMiddleware = {
@@ -17,12 +18,24 @@ const authMiddleware = {
             })
         }
     },
-    auhthorizationAdmin: (req, res, next) => {
-        const userRole = 'admin'; // Vai trò của người dùng (ví dụ: admin hoặc user)
-        if (userRole === 'admin') {
+    auhthorizationAdmin: async (req, res, next) => {
+        const { username } = req.params // sẽ lấy trong token ở bài 8
+        try {
+            const findUser = await getOneUser({ username })
+            if (!findUser) throw new Error('Username is not exist')
+            const checkRoleAdmin = findUser.role.includes('admin') // Vai trò của người dùng (ví dụ: admin hoặc user)
+            console.log(checkRoleAdmin);
+
+            if (checkRoleAdmin) {
+                req.isAdmin = true
+            } else {
+                req.isAdmin = false
+            }
             next(); // Cho phép truy cập vào route
-        } else {
-            res.status(403).send('Forbidden'); // Trả về lỗi 403 nếu không có quyền truy cập
+        } catch (error) {
+            res.status(500).send({
+                message: error.message
+            })
         }
     }
 };
