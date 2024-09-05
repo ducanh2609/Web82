@@ -45,9 +45,10 @@ export const login = (req, res) => {
         const checkPassword = bcrypt.compareSync(password, 'mk DB')
         // k đúng báo ra lỗi sai mk
         // Báo ok
+        const apiKey = `web-${req.body.userId}$-${req.body.email}-${randomString}$`
         res.status(200).send({
             message: 'Login success',
-            token: '',
+            apiKey,
         })
     } catch (error) {
         res.status(500).send({
