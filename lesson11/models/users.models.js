@@ -23,14 +23,18 @@ const userSchema = new mongoose.Schema({
 })
 
 const UserModel = new mongoose.model(COLLECTIONS.USERS, userSchema)
-
-export const getUser = (data) => {
-    return UserModel.find(data)
+export const countUsers = () => {
+    return UserModel.countDocuments()
+}
+export const getUser = (data, skip, pageSize) => {
+    return UserModel.find(data).skip(skip).limit(pageSize)
 }
 export const getOneUser = (data) => {
     return UserModel.findOne(data)
 }
 export const getUserById = (id) => {
+    console.log(id);
+
     return UserModel.findById(id)
 }
 
